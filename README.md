@@ -1,24 +1,20 @@
-# Predicting-Stock-Volatility-using-Financial-News-Sentiment-Analysis-
-This is a project which I did during Winter in Data Science December-2025.This Project merges the fundamentals of Natural Language 
-Processing (NLP) and Quantitative Finance Analytics.
+# Volatility Forecasting with FinBERT Sentiment
 
- # Project Overview 
-Financial markets react strongly to news good or bad. In this project, I collected news headlines and merged them with historical stock price data to study whether sentiment from financial news can help **predict future stock price volatility**.
+## Overview
+Predicting next-day realized volatility for top 10 S&P 500 
+stocks using FinBERT sentiment scores from financial news,
+benchmarked against GARCH(1,1) via Diebold-Mariano test.
 
-I :
-- Parsed financial news from online sources
-- Preprocessed and analyzed text using sentiment tools
-- Created features linking sentiment to market moves
-- Built and evaluated prediction models
+## Pipeline
+1. Price data via yfinance
+2. 30-day realized volatility
+3. News headlines via Alpaca Markets API
+4. FinBERT sentiment scoring (GPU-accelerated)
+5. GARCH-X model with lagged sentiment
 
-This helped me combine **text analytics** with **market data analysis**
+## Setup
+pip install -r requirements.txt
+Add API keys to .env file (see .env.example)
 
-## What I Learned
-
-- Basics of **Python for data analysis**
-- Parsing XML/RSS feeds
-- Text preprocessing (tokenization, cleaning)
-- Using sentiment analysis models like **VADER or FinBERT**
-- Feature engineering and basic machine learning modeling
-- Correlating textual sentiment with market returns and volatility
-
+## Status
+Work in progress
