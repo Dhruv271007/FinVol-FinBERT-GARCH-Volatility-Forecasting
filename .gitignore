@@ -1,0 +1,17 @@
+# API Keys - never upload
+.env
+
+# Data files - too large for GitHub
+*.csv
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# VS Code settings
+.vscode/
+
+# Huggingface model cache
+*.bin
+*.safetensors
