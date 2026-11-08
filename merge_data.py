@@ -1,6 +1,5 @@
-import pandas as pd
-import numpy as np
-from Task1 import log_returns, realized_vol
+"""Compatibility entry point for corrected target-aligned news features."""
+from corrected_data import build_merged, main
 
-print("data loaded!")
-print(realized_vol.shape)
+if __name__ == "__main__":
+    main()

@@ -1,17 +1,34 @@
-# API Keys - never upload
+# Secrets
 .env
+.env.*
+!.env.example
 
-# Data files - too large for GitHub
-*.csv
-
-# Python cache
+# Python / editor / OS
 __pycache__/
 *.pyc
-*.pyo
-
-# VS Code settings
+.venv/
+venv/
+.ipynb_checkpoints/
 .vscode/
+.idea/
+.cph/
+build/
+Thumbs.db
+.DS_Store
 
-# Huggingface model cache
-*.bin
-*.safetensors
+# Scratch and regenerated report assets
+tmp/
+
+# Raw data caches (licensed news text and price downloads are not redistributed)
+*_news.csv
+*_sentiment.csv
+*_merged_lagged.csv
+price_data.csv
+output/corrected_data/
+output/refreshed_news/
+output/refreshed_prices/
+output/rescored_sentiment/
+
+# Local-only artifacts
+insight.ipynb
+output/volatility_project_public_package.zip

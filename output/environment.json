@@ -1,0 +1,18 @@
+{
+  "python": "3.13.14 (tags/v3.13.14:fd17997, Jun 10 2026, 13:03:48) [MSC v.1944 64 bit (AMD64)]",
+  "packages": {
+    "numpy": "2.5.1",
+    "pandas": "3.0.3",
+    "scipy": "1.18.0",
+    "arch": "8.0.0",
+    "statsmodels": "0.15.0",
+    "exchange-calendars": "4.13.2",
+    "matplotlib": "3.11.0",
+    "reportlab": "5.0.1",
+    "yfinance": "1.5.1",
+    "alpaca-py": "0.43.5",
+    "python-dotenv": "1.2.2",
+    "transformers": "5.14.1",
+    "PyMuPDF": "1.26.7"
+  }
+}

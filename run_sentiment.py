@@ -1,34 +1,32 @@
-import sys
-sys.stdout.reconfigure(encoding='utf-8')
-print("imports starting...")
-print("pandas imported")
-import pandas as pd
-print("ast imported")
+"""Explicit optional rescoring; existing sentiment caches are never overwritten."""
 import ast
-print("sentiment importing...")
-from sentiment import get_sentiment_batch, model, tokenizer, device
-print("all imports done!")
-tickers=["AAPL","MSFT","NVDA","AMZN","GOOGL","META","BRK-B","LLY","AVGO","TSLA"]
-print("starting loop...")
-print(f"looking for: AAPL_news.csv")
-print(f"file exists: {pd.io.common.file_exists('AAPL_news.csv')}")
-for ticker in tickers:
-    df = pd.read_csv(f"{ticker}_news.csv")
-    df['symbols']=df['symbols'].apply(lambda x: ast.literal_eval(x))
-    df = df[df['symbols'].apply(lambda x: ticker in x)]
-    print(f"{ticker}: {len(df)} articles after filtering ")
-    # batch processing
-    headlines = df['headline'].tolist()  # convert column to python list
-    sentiment_scores = []
-    
-    for i in range(0, len(headlines), 64):  # step through in chunks of 64
-        batch = headlines[i:i+64]           # slice 64 headlines at a time
-        scores = get_sentiment_batch(batch)
-        sentiment_scores.extend(scores)
-        print(f"  processed {min(i+64, len(headlines))}/{len(headlines)}")
-    
-    df['sentiment'] = sentiment_scores
-    df.to_csv(f"{ticker}_sentiment.csv", index=False)
-    print(f"{ticker} done!")
+import json
+import pandas as pd
+from project_config import ROOT, TICKERS, OUTPUT
+from sentiusingpytorch import get_sentiment_batch, load_model
 
 
+def main():
+    directory = OUTPUT / "rescored_sentiment"
+    directory.mkdir(parents=True, exist_ok=True)
+    for ticker in TICKERS:
+        destination = directory / f"{ticker}_sentiment.csv"
+        if destination.exists():
+            raise FileExistsError(destination)
+        df = pd.read_csv(ROOT / f"{ticker}_news.csv")
+        df["symbols"] = df.symbols.map(ast.literal_eval)
+        df = df.loc[df.symbols.map(lambda symbols:ticker in symbols)].copy()
+        df = df.drop_duplicates(["date","headline"])
+        scores = []
+        for i in range(0,len(df),64):
+            scores.extend(get_sentiment_batch(df.headline.iloc[i:i+64].tolist()))
+        df["sentiment"] = scores
+        df.to_csv(destination,index=False)
+        print(ticker,len(df),flush=True)
+    _, model, device = load_model()
+    (directory/"model_metadata.json").write_text(json.dumps({"model":"ProsusAI/finbert",
+        "revision":getattr(model.config,"_commit_hash",None),"device":device,"id2label":model.config.id2label},indent=2))
+
+
+if __name__ == "__main__":
+    main()

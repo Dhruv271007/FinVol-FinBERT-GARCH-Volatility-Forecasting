@@ -1,0 +1,57 @@
+{
+  "pdf_pages": 26,
+  "pdf_text_words": 10395,
+  "pdf_text_bounds_issues": [],
+  "page_text_word_counts": [
+    206,
+    182,
+    439,
+    555,
+    440,
+    381,
+    402,
+    507,
+    419,
+    387,
+    588,
+    398,
+    508,
+    413,
+    318,
+    327,
+    325,
+    345,
+    376,
+    359,
+    533,
+    460,
+    493,
+    479,
+    310,
+    245
+  ],
+  "original_csv_files_checked": 41,
+  "changed_original_csvs": [],
+  "experiment_invariant_checks": [
+    {
+      "label": "corrected",
+      "stocks": 9,
+      "comparisons": 18
+    },
+    {
+      "label": "sensitivity70",
+      "stocks": 9,
+      "comparisons": 18
+    },
+    {
+      "label": "coverage30",
+      "stocks": 9,
+      "comparisons": 18
+    }
+  ],
+  "behavioral_tests": {
+    "count": 8,
+    "result": "passed"
+  },
+  "page_renders": "tmp\\report_qa"
+}
